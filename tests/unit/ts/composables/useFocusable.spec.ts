@@ -60,11 +60,11 @@ describe("useFocusable", () => {
     expect(addEventListenerSpy).toHaveBeenCalledTimes(2)
     expect(addEventListenerSpy).toHaveBeenCalledWith(
       "blur",
-      expect.any(Function)
+      expect.any(Function),
     )
     expect(addEventListenerSpy).toHaveBeenCalledWith(
       "focus",
-      expect.any(Function)
+      expect.any(Function),
     )
     expect(removeEventListenerSpy).not.toHaveBeenCalled()
 
@@ -74,11 +74,11 @@ describe("useFocusable", () => {
     expect(removeEventListenerSpy).toHaveBeenCalledTimes(2)
     expect(removeEventListenerSpy).toHaveBeenCalledWith(
       "blur",
-      expect.any(Function)
+      expect.any(Function),
     )
     expect(removeEventListenerSpy).toHaveBeenCalledWith(
       "focus",
-      expect.any(Function)
+      expect.any(Function),
     )
   })
 

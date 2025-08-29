@@ -123,7 +123,7 @@ export interface ToastForm {
   fields: ToastFormField[]
   onSubmit: (
     formData: Record<string, any>,
-    toastId: string
+    toastId: string,
   ) => void | Promise<void>
   onCancel?: (toastId: string) => void
   submitLabel?: string

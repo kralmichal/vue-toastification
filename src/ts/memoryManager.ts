@@ -36,25 +36,25 @@ export class EventListenerManager {
     element: HTMLElement,
     event: K,
     handler: (event: HTMLElementEventMap[K]) => void,
-    options?: AddEventListenerOptions
+    options?: AddEventListenerOptions,
   ): string
   addEventListener<K extends keyof WindowEventMap>(
     element: Window,
     event: K,
     handler: (event: WindowEventMap[K]) => void,
-    options?: AddEventListenerOptions
+    options?: AddEventListenerOptions,
   ): string
   addEventListener<K extends keyof DocumentEventMap>(
     element: Document,
     event: K,
     handler: (event: DocumentEventMap[K]) => void,
-    options?: AddEventListenerOptions
+    options?: AddEventListenerOptions,
   ): string
   addEventListener(
     element: HTMLElement | Window | Document,
     event: string,
     handler: EventListener,
-    options?: AddEventListenerOptions
+    options?: AddEventListenerOptions,
   ): string {
     const id = `listener_${++this.listenerId}`
 
@@ -238,32 +238,32 @@ export class MemoryManager {
     element: HTMLElement,
     event: K,
     handler: (event: HTMLElementEventMap[K]) => void,
-    options?: AddEventListenerOptions
+    options?: AddEventListenerOptions,
   ): string
   addEventListener<K extends keyof WindowEventMap>(
     element: Window,
     event: K,
     handler: (event: WindowEventMap[K]) => void,
-    options?: AddEventListenerOptions
+    options?: AddEventListenerOptions,
   ): string
   addEventListener<K extends keyof DocumentEventMap>(
     element: Document,
     event: K,
     handler: (event: DocumentEventMap[K]) => void,
-    options?: AddEventListenerOptions
+    options?: AddEventListenerOptions,
   ): string
   addEventListener(
     element: HTMLElement | Window | Document,
     event: string,
     handler: EventListener,
-    options?: AddEventListenerOptions
+    options?: AddEventListenerOptions,
   ): string {
     // Use type assertion since we know the event types are compatible
     return this.eventManager.addEventListener(
       element as any,
       event as any,
       handler,
-      options
+      options,
     )
   }
 
@@ -313,7 +313,7 @@ export class MemoryManager {
    * Add observer (MutationObserver, ResizeObserver, etc.) with cleanup tracking
    */
   addObserver(
-    observer: MutationObserver | ResizeObserver | IntersectionObserver
+    observer: MutationObserver | ResizeObserver | IntersectionObserver,
   ): void {
     this.observers.add(observer)
   }
@@ -322,7 +322,7 @@ export class MemoryManager {
    * Remove and disconnect observer
    */
   removeObserver(
-    observer: MutationObserver | ResizeObserver | IntersectionObserver
+    observer: MutationObserver | ResizeObserver | IntersectionObserver,
   ): void {
     if (this.observers.has(observer)) {
       observer.disconnect()
@@ -406,19 +406,19 @@ export const memoryMonitor = {
       if (stats.totalListeners > threshold) {
         // eslint-disable-next-line no-console
         console.warn(
-          `Potential memory leak: ${stats.totalListeners} active event listeners`
+          `Potential memory leak: ${stats.totalListeners} active event listeners`,
         )
       }
       if (stats.totalTimers > threshold) {
         // eslint-disable-next-line no-console
         console.warn(
-          `Potential memory leak: ${stats.totalTimers} active timers`
+          `Potential memory leak: ${stats.totalTimers} active timers`,
         )
       }
       if (stats.totalFrames > threshold) {
         // eslint-disable-next-line no-console
         console.warn(
-          `Potential memory leak: ${stats.totalFrames} active animation frames`
+          `Potential memory leak: ${stats.totalFrames} active animation frames`,
         )
       }
     } catch (e) {

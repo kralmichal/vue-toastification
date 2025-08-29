@@ -106,7 +106,7 @@ const { focused } = useFocusable(el, props)
 const { beingDragged, dragComplete } = useDraggable(el, props)
 
 const isRunning = computed(
-  () => !hovering.value && focused.value && !beingDragged.value
+  () => !hovering.value && focused.value && !beingDragged.value,
 )
 
 const closeToast = () => {
@@ -148,6 +148,6 @@ const bodyClasses = computed(() =>
     `${VT_NAMESPACE}__toast-${
       isString(props.content) ? "body" : "component-body"
     }`,
-  ].concat(props.bodyClassName)
+  ].concat(props.bodyClassName),
 )
 </script>

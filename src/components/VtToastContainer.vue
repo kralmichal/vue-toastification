@@ -64,13 +64,13 @@ const props = withDefaults(defineProps<ToastContainerProps>(), {
 })
 
 const positions = Object.values(POSITION)
-const asPositionRecord = <T>(getValues: (position: POSITION) => T) =>
+const asPositionRecord = <T,>(getValues: (position: POSITION) => T) =>
   positions.reduce(
     (agg, position) => ({
       ...agg,
       [position]: getValues(position),
     }),
-    {} as Record<POSITION, T>
+    {} as Record<POSITION, T>,
   )
 
 const el = ref<HTMLElement>()
@@ -101,7 +101,7 @@ const filteredToasts = computed(() => {
 })
 
 const setup = async (
-  container: NonNullable<ToastContainerOptions["container"]>
+  container: NonNullable<ToastContainerOptions["container"]>,
 ) => {
   if (isFunction(container)) {
     container = await container()
@@ -188,7 +188,7 @@ const toastClasses = computed(() => {
   const getClasses = (position: POSITION) => {
     const classes = [`${VT_NAMESPACE}__container`, position]
     return classes.concat(
-      containerProps.value.containerClassName as string | string[]
+      containerProps.value.containerClassName as string | string[],
     )
   }
   return asPositionRecord(getClasses)

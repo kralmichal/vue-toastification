@@ -41,7 +41,7 @@ describe("plugin", () => {
       })
       expect(mockApp.provide).toHaveBeenCalledWith(
         useToast.toastInjectionKey,
-        toast
+        toast,
       )
     })
 
@@ -64,7 +64,7 @@ describe("plugin", () => {
       })
       expect(mockApp.provide).toHaveBeenCalledWith(
         useToast.toastInjectionKey,
-        toast
+        toast,
       )
     })
 
@@ -87,7 +87,7 @@ describe("plugin", () => {
       })
       expect(mockApp.provide).toHaveBeenCalledWith(
         useToast.toastInjectionKey,
-        toast
+        toast,
       )
     })
 
@@ -103,7 +103,7 @@ describe("plugin", () => {
       pluginFunction(mockApp)
 
       expect(createToastInstanceSpy).not.toHaveBeenCalledWith(
-        expect.objectContaining({ shareAppContext: mockApp })
+        expect.objectContaining({ shareAppContext: mockApp }),
       )
     })
 
@@ -119,7 +119,7 @@ describe("plugin", () => {
       pluginFunction(mockApp, { shareAppContext: true })
 
       expect(createToastInstanceSpy).toHaveBeenCalledWith(
-        expect.objectContaining({ shareAppContext: mockApp })
+        expect.objectContaining({ shareAppContext: mockApp }),
       )
     })
   })

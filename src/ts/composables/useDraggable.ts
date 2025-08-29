@@ -23,7 +23,7 @@ export interface MobileDragOptions {
 export const useDraggable = (
   el: Ref<HTMLElement | undefined>,
   props: Required<Draggable>,
-  mobileOptions: MobileDragOptions = {}
+  mobileOptions: MobileDragOptions = {},
 ) => {
   // Extract used props
   const { draggablePercent, draggable } = toRefs(props)
@@ -41,7 +41,7 @@ export const useDraggable = (
 
   // Define state
   const dragRect = computed(() =>
-    el.value ? el.value.getBoundingClientRect() : undefined
+    el.value ? el.value.getBoundingClientRect() : undefined,
   )
   const dragStarted = ref(false)
   const beingDragged = ref(false)
@@ -53,7 +53,7 @@ export const useDraggable = (
   const isDragIntentional = ref(false)
 
   const dragDelta = computed(() =>
-    beingDragged.value ? dragPos.value.x - dragStart.value : 0
+    beingDragged.value ? dragPos.value.x - dragStart.value : 0,
   )
   const dragComplete = ref(false)
 
@@ -61,7 +61,7 @@ export const useDraggable = (
   const isMobileDevice = computed(() => {
     return (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
+        navigator.userAgent,
       ) || window.innerWidth <= 768
     )
   })
@@ -114,7 +114,7 @@ export const useDraggable = (
           }
         }
       }
-    }
+    },
   )
 
   // Enhanced drag start handler
@@ -246,7 +246,7 @@ export const useDraggable = (
         window,
         "orientationchange",
         handleViewportChange,
-        { passive: true }
+        { passive: true },
       )
     }
   })

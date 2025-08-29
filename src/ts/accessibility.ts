@@ -4,8 +4,8 @@
  */
 import { ref, onMounted, onUnmounted } from "vue"
 
-import type { ToastID } from "../types/common"
 import type { TYPE } from "./constants"
+import type { ToastID } from "../types/common"
 
 export interface AccessibilityOptions {
   /**
@@ -203,7 +203,7 @@ class KeyboardNavigationManager {
     if (!toastId) return
 
     const toastElement = document.querySelector(
-      `[data-toast-id="${toastId}"]`
+      `[data-toast-id="${toastId}"]`,
     ) as HTMLElement
     if (toastElement) {
       toastElement.focus()
@@ -264,7 +264,7 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
     if (keyboardNavigation) {
       document.addEventListener(
         "keydown",
-        keyboardManager.handleKeyDown.bind(keyboardManager)
+        keyboardManager.handleKeyDown.bind(keyboardManager),
       )
     }
   })
@@ -273,7 +273,7 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
     if (keyboardNavigation) {
       document.removeEventListener(
         "keydown",
-        keyboardManager.handleKeyDown.bind(keyboardManager)
+        keyboardManager.handleKeyDown.bind(keyboardManager),
       )
     }
   })
@@ -317,7 +317,7 @@ export function useAccessibility(options: AccessibilityOptions = {}) {
    */
   const getToastAriaAttributes = (
     toastId: ToastID,
-    type: TYPE | string = "default"
+    type: TYPE | string = "default",
   ) => {
     return {
       role: type === "error" ? "alert" : "status",
@@ -398,7 +398,7 @@ export function useReducedMotion() {
   onMounted(() => {
     const checkReducedMotion = () => {
       const reducedMotionQuery = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
+        "(prefers-reduced-motion: reduce)",
       )
       prefersReducedMotion.value = reducedMotionQuery.matches
     }
@@ -407,7 +407,7 @@ export function useReducedMotion() {
 
     // Listen for changes
     const reducedMotionQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     )
     if (reducedMotionQuery.addEventListener) {
       reducedMotionQuery.addEventListener("change", checkReducedMotion)

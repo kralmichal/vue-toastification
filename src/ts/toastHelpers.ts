@@ -23,7 +23,7 @@ export function createConfirmationToast(
     onConfirm: () => void | Promise<void>
     onCancel?: () => void
   },
-  options?: ToastOptions
+  options?: ToastOptions,
 ): Promise<boolean> {
   return new Promise(resolve => {
     const toast = useToast()
@@ -72,7 +72,7 @@ export function createConfirmationToast(
 export function createActionToast(
   content: string,
   actions: ToastAction[],
-  options?: ToastOptions & InteractiveToastOptions
+  options?: ToastOptions & InteractiveToastOptions,
 ): ToastID {
   const toast = useToast()
 
@@ -104,7 +104,7 @@ export function createActionToast(
   return toast({
     component,
     props: { content, actions, toastId: "" },
-    timeout: options?.persistent ? false : options?.timeout ?? 5000,
+    timeout: options?.persistent ? false : (options?.timeout ?? 5000),
     closeOnClick: false,
     hideProgressBar: options?.persistent,
     ...options,
@@ -119,7 +119,7 @@ export function createProgressToast(
   options?: ToastOptions & {
     cancelable?: boolean
     onCancel?: () => void
-  }
+  },
 ): {
   toastId: ToastID
   updateProgress: (progress: number, message?: string) => void
@@ -226,7 +226,7 @@ export function createProgressToast(
  */
 export function createLoadingToast(
   message: string,
-  options?: ToastOptions
+  options?: ToastOptions,
 ): {
   toastId: ToastID
   updateMessage: (message: string) => void
@@ -293,7 +293,7 @@ export function createLoadingToast(
 export function createUndoToast(
   message: string,
   onUndo: () => void | Promise<void>,
-  options?: ToastOptions
+  options?: ToastOptions,
 ): ToastID {
   return createActionToast(
     message,
@@ -310,7 +310,7 @@ export function createUndoToast(
       timeout: 8000, // Longer timeout for undo actions
       position: POSITION.BOTTOM_CENTER,
       ...options,
-    }
+    },
   )
 }
 

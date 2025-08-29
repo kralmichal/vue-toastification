@@ -97,7 +97,7 @@ const toast = useToast()
 const { announceToast } = useAccessibility()
 const { isHighContrast } = useHighContrast()
 
-const getRandom = <T>(list: T[]) =>
+const getRandom = <T,>(list: T[]) =>
   list[Math.floor((Math.random() * 10) % list.length)]
 
 const randomType = () => getRandom(Object.values(TYPE))
@@ -224,7 +224,7 @@ const toggleHighContrast = () => {
   toast.info(
     `High contrast mode ${
       document.body.classList.contains("high-contrast") ? "enabled" : "disabled"
-    }`
+    }`,
   )
 }
 

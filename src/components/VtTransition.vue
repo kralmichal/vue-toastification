@@ -85,7 +85,7 @@ const isSpringAnimation = computed(() => {
 
 // Spring animation setup
 const springElements = ref(
-  new WeakMap<HTMLElement, ReturnType<typeof useSpringAnimation>>()
+  new WeakMap<HTMLElement, ReturnType<typeof useSpringAnimation>>(),
 )
 
 const beforeEnter = (el: unknown) => {

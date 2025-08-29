@@ -15,7 +15,7 @@ export declare interface PluginOptions extends BasePluginOptions {
    */
   onMounted?: (
     containerComponent: ComponentPublicInstance,
-    containerApp: App<Element>
+    containerApp: App<Element>,
   ) => void
   /**
    * Shares the context of your app with your toasts

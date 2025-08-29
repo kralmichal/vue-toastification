@@ -23,11 +23,14 @@ describe("interface", () => {
 
     beforeEach(() => {
       eventBus = new EventBus()
-      eventsEmmited = Object.values(EVENTS).reduce((agg, eventName) => {
-        const handler = jest.fn()
-        eventBus.on(eventName, handler)
-        return { ...agg, [eventName]: handler }
-      }, {} as { [eventName in EVENTS]: jest.Mock })
+      eventsEmmited = Object.values(EVENTS).reduce(
+        (agg, eventName) => {
+          const handler = jest.fn()
+          eventBus.on(eventName, handler)
+          return { ...agg, [eventName]: handler }
+        },
+        {} as { [eventName in EVENTS]: jest.Mock },
+      )
     })
 
     it("creates valid interface by default", async () => {
@@ -89,7 +92,7 @@ describe("interface", () => {
         VtToastContainer,
         expect.objectContaining({
           eventBus: expect.any(EventBus),
-        })
+        }),
       )
       expect(mockApp.mount).toHaveBeenCalled()
     })
@@ -156,7 +159,7 @@ describe("interface", () => {
       expect(mockApp._context.mixins).toBe(userApp._context.mixins)
       expect(mockApp._context.provides).toBe(userApp._context.provides)
       expect(mockApp.config.globalProperties).toBe(
-        userApp.config.globalProperties
+        userApp.config.globalProperties,
       )
     })
   })
