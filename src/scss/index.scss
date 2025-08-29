@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
-@import "variables";
-@import "toastContainer";
-@import "toast";
-@import "closeButton";
-@import "progressBar";
-@import "icon";
+@use "variables" as *;
+@use "toastContainer" as *;
+@use "toast" as *;
+@use "closeButton" as *;
+@use "progressBar" as *;
+@use "icon" as *;
 
-@import "animations/bounce";
-@import "animations/fade";
-@import "animations/slideBlurred";
-@import "animations/advanced";
+@use "animations/bounce" as *;
+@use "animations/fade" as *;
+@use "animations/slideBlurred" as *;
+@use "animations/advanced" as *;

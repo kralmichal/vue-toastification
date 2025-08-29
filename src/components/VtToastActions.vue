@@ -77,7 +77,7 @@ const isActionLoading = computed(() => {
 </script>
 
 <style lang="scss">
-@import "../scss/variables";
+@use "../scss/variables" as *;
 
 .vt-toast-actions {
   display: flex;

@@ -78,7 +78,7 @@ const handleCancel = () => {
 </script>
 
 <style lang="scss">
-@import "../scss/variables";
+@use "../scss/variables" as *;
 
 .vt-confirmation-toast {
   padding: 4px;
