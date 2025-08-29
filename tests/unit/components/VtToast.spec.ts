@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, nextTick, ref, computed } from "vue"
+import { nextTick, ref, computed } from "vue"
 
 import { mount, VueWrapper } from "@vue/test-utils"
 import merge from "lodash.merge"
