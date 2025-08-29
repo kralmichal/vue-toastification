@@ -86,13 +86,26 @@ export const useDraggable = (
 
   // Update style to match drag
   watch(
-    [el, dragStart, dragPos, dragDelta, removalDistance, beingDragged],
+    [
+      el,
+      dragStart,
+      dragPos,
+      dragDelta,
+      removalDistance,
+      beingDragged,
+      dragComplete,
+    ],
     () => {
       /* istanbul ignore else  */
       if (el.value) {
-        el.value.style.transform = "translateX(0px)"
-        el.value.style.opacity = "1"
-        if (dragStart.value === dragPos.value.x) {
+        if (dragComplete.value) {
+          // Maintain final position when drag is complete
+          el.value.style.transform = `translateX(${dragDelta.value}px)`
+          el.value.style.opacity = "0"
+          el.value.style.transition = ""
+        } else if (dragStart.value === dragPos.value.x) {
+          el.value.style.transform = "translateX(0px)"
+          el.value.style.opacity = "1"
           el.value.style.transition = ""
         } else if (beingDragged.value) {
           const transform = `translateX(${dragDelta.value}px)`
@@ -107,6 +120,8 @@ export const useDraggable = (
             el.value.style.backfaceVisibility = "hidden"
           }
         } else {
+          el.value.style.transform = "translateX(0px)"
+          el.value.style.opacity = "1"
           el.value.style.transition =
             "transform 0.2s ease-out, opacity 0.2s ease-out"
           if (isMobileDevice.value) {

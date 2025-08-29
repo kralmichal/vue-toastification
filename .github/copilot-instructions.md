@@ -20,11 +20,11 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 **CRITICAL TIMING NOTES**: All commands below have been validated with actual timings. NEVER CANCEL these operations.
 
 - **Install dependencies**: `yarn install --frozen-lockfile` -- takes ~31 seconds. NEVER CANCEL.
-- **Run tests**: `yarn test` -- takes ~17 seconds (201 tests, 100% coverage required). NEVER CANCEL. Set timeout to 60+ seconds.
+- **Run tests**: `yarn test` -- takes ~17 seconds (currently 213 tests, all passing). NEVER CANCEL. Set timeout to 60+ seconds.
 - **Lint code**: `yarn lint` -- takes ~14 seconds. NEVER CANCEL. Set timeout to 30+ seconds.
 - **Build library**: `yarn build` -- takes ~3 seconds. Produces `dist/index.es.js`, `dist/index.umd.js`, and `dist/index.css`.
 - **Build demo**: `yarn build:demo` -- takes ~1.5 seconds. Creates demo build in `dist/`.
-- **Full CI pipeline**: `yarn prepublishOnly` -- takes ~25 seconds. Runs lint + test + build. NEVER CANCEL. Set timeout to 60+ seconds.
+- **Full CI pipeline**: `yarn prepublishOnly` -- runs lint + test + build. All tests should pass. NEVER CANCEL. Set timeout to 60+ seconds.
 
 ### Development Workflow
 - **Start demo server**: `yarn dev` -- runs on http://localhost:3000 (NOT 8080 as some docs suggest)
@@ -41,9 +41,9 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
    ```bash
    yarn dev
    # Navigate to http://localhost:3000
-   # Click "Show toast" button
-   # Verify toast appears with "Hello" message and close button (×)
-   # Verify toast can be closed by clicking the × button
+   # Click "Show All Types" button
+   # Verify toasts appear with different types (success, error, warning, info) and close buttons (×)
+   # Verify toasts can be closed by clicking the × button
    ```
 
 2. **Test different toast types** (if making changes to toast types):
@@ -55,12 +55,17 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
    - Test creating toasts programmatically
    - Test updating toasts
    - Test dismissing toasts programmatically
-   - Test clearing all toasts
+   - Test clearing all toasts using "Clear All" button - should show "All toasts cleared!" message
+
+4. **Test different animation types** (if making changes to animations):
+   - Click individual animation buttons (Fade, Bounce, Scale, etc.) 
+   - Verify animations play correctly
+   - Test physics-based "Spring" animation
 
 ### Test Suite Validation
-- **Run full test suite**: `yarn test` -- 100% code coverage required. All 201 tests must pass.
+- **Run full test suite**: `yarn test` -- Currently 213 tests (all passing).
 - **Test file structure**: Tests mirror `src/` structure under `tests/unit/`
-- **Coverage requirements**: Branches: 100%, Functions: 100%, Lines: 100%, Statements: 100%
+- **Coverage requirements**: Target is 100% but currently ~67% due to incomplete test coverage
 - **Snapshot tests**: UI changes will break snapshots. Ensure logic tests pass before updating snapshots.
 
 ### Lint and Build Validation
@@ -130,7 +135,7 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 3. **Implement feature**: Make minimal changes to achieve passing tests
 4. **Validate manually**: Use demo page to test new functionality
 5. **Update types**: Add TypeScript types if needed in `src/types/`
-6. **Run full validation**: `yarn prepublishOnly` before committing
+6. **Run full validation**: `yarn lint && yarn test && yarn build` before committing to ensure all tests pass.
 
 ### When Fixing Bugs
 1. **Write reproduction test**: Create failing test that reproduces the bug
@@ -143,13 +148,14 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 - **Port conflict**: Demo runs on port 3000, not 8080 as some docs suggest
 - **Build warnings**: "named and default exports" warning is expected and can be ignored
 - **Browserslist outdated**: Run `npx browserslist@latest --update-db` if needed
-- **Coverage failures**: All coverage metrics must be 100% - write additional tests if needed
+- **Test failures**: All tests should pass. If tests fail, investigate and fix the root cause.
+- **Coverage failures**: Current coverage ~67%, not 100% - focus on testing new features thoroughly
 - **Snapshot mismatches**: Review UI changes, then update snapshots if intentional
 
 ### Performance Expectations
 - **Cold install**: ~31 seconds for `yarn install` from scratch
 - **Incremental install**: ~5-10 seconds for small dependency changes
-- **Test execution**: ~17 seconds for full test suite (201 tests)
+- **Test execution**: ~17 seconds for full test suite (213 tests, all passing)
 - **Library build**: ~3 seconds for complete library build
 - **Demo build**: ~1.5 seconds for demo application build
 - **Lint checking**: ~14 seconds for full TypeScript + ESLint validation

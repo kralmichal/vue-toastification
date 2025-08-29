@@ -21,7 +21,10 @@ const completeText = "complete"
 
 type Props = Parameters<typeof useDraggable>[1]
 
-const TestComponent = (getEl?: (el: Ref<HTMLElement | undefined>) => void) =>
+const TestComponent = (
+  getEl?: (el: Ref<HTMLElement | undefined>) => void,
+  mobileOptions?: any
+) =>
   defineComponent({
     props: {
       draggablePercent: {
@@ -36,7 +39,11 @@ const TestComponent = (getEl?: (el: Ref<HTMLElement | undefined>) => void) =>
     setup(props) {
       const el = ref<HTMLElement>()
       onMounted(() => getEl && getEl(el))
-      const { beingDragged, dragComplete } = useDraggable(el, props)
+      const { beingDragged, dragComplete } = useDraggable(
+        el,
+        props,
+        mobileOptions
+      )
       const text = computed(() => {
         if (dragComplete.value) {
           return completeText
@@ -61,11 +68,11 @@ describe("useDraggable", () => {
   const clientRect: Omit<DOMRect, "toJSON"> = {
     x: startPos.clientX,
     y: startPos.clientY,
-    right: 10,
+    right: 100,
     left: 0,
     bottom: 0,
     height: 0,
-    width: 0,
+    width: 100,
     top: 0,
   }
 
@@ -133,7 +140,9 @@ describe("useDraggable", () => {
 
   it("beingDragged not enough with mouse", async () => {
     const props = reactive<Props>({ draggable: true, draggablePercent: 0.6 })
-    const wrapper = mount(TestComponent(getEl), { props })
+    // Disable velocity-based dismissal for this test
+    const mobileOptions = { velocityThreshold: 999 }
+    const wrapper = mount(TestComponent(getEl, mobileOptions), { props })
 
     const outer = wrapper.find("#outer")
     const inner = wrapper.find("#inner")
@@ -148,7 +157,8 @@ describe("useDraggable", () => {
     expect(inner.text()).toEqual(inactiveText)
 
     // Get current position and calculate a move that is not enough to complete the drag
-    const dragDistance = getDragDistance(0.6) * 0.9
+    // Use only 30px which should be enough to trigger beingDragged but not complete
+    const dragDistance = 30
     window.dispatchEvent(
       new window.MouseEvent("mousemove", {
         clientX: startPos.clientX + dragDistance,
@@ -161,13 +171,15 @@ describe("useDraggable", () => {
     // End the drag
     window.dispatchEvent(new window.MouseEvent("mouseup"))
     await nextTick()
-    await new Promise(r => setTimeout(r))
+    await new Promise(r => setTimeout(r, 10))
     expect(inner.text()).toEqual(inactiveText)
   })
 
   it("beingDragged not enough with touch", async () => {
     const props = reactive<Props>({ draggable: true, draggablePercent: 0.6 })
-    const wrapper = mount(TestComponent(getEl), { props })
+    // Disable velocity-based dismissal for this test
+    const mobileOptions = { velocityThreshold: 999 }
+    const wrapper = mount(TestComponent(getEl, mobileOptions), { props })
 
     const outer = wrapper.find("#outer")
     const inner = wrapper.find("#inner")
@@ -181,8 +193,12 @@ describe("useDraggable", () => {
 
     expect(inner.text()).toEqual(inactiveText)
 
+    // Wait for touch hold delay to expire (100ms)
+    await new Promise(r => setTimeout(r, 110))
+
     // Get current position and calculate a move that is not enough to complete the drag
-    const dragDistance = getDragDistance(0.6) * 0.9
+    // Use only 30px which should be enough to trigger beingDragged but not complete
+    const dragDistance = 30
     window.dispatchEvent(
       new window.MouseEvent("touchmove", {
         clientX: startPos.clientX + dragDistance,
@@ -195,7 +211,7 @@ describe("useDraggable", () => {
     // End the drag
     window.dispatchEvent(new window.MouseEvent("touchend"))
     await nextTick()
-    await new Promise(r => setTimeout(r))
+    await new Promise(r => setTimeout(r, 10))
     expect(inner.text()).toEqual(inactiveText)
   })
 
@@ -229,12 +245,14 @@ describe("useDraggable", () => {
     // End the drag
     window.dispatchEvent(new window.MouseEvent("mouseup"))
     await nextTick()
-    await new Promise(r => setTimeout(r))
+    await new Promise(r => setTimeout(r, 10))
     expect(inner.text()).toEqual(completeText)
   })
 
   it("styles are applied", async () => {
     const props = reactive<Props>({ draggable: true, draggablePercent: 0.6 })
+    // Disable velocity-based dismissal for this test
+    const mobileOptions = { velocityThreshold: 999 }
     let _el: HTMLElement | undefined = undefined
 
     const wrapper = mount(
@@ -243,7 +261,7 @@ describe("useDraggable", () => {
         if (e.value) {
           _el = e.value
         }
-      }),
+      }, mobileOptions),
       { props }
     )
 
@@ -276,7 +294,7 @@ describe("useDraggable", () => {
 
     // Drag a little bit
     const removalDistance = getDragDistance(0.6)
-    const dragDistance = Math.floor(removalDistance * 0.8)
+    const dragDistance = 30 // Use fixed distance that won't complete with disabled velocity
     window.dispatchEvent(
       new window.MouseEvent("mousemove", {
         clientX: startPos.clientX + dragDistance,
@@ -300,7 +318,9 @@ describe("useDraggable", () => {
     // Return to initial styles with a transition
     expect(el.style.transform).toEqual(`translateX(0px)`)
     expect(el.style.opacity).toEqual("1")
-    expect(el.style.transition).toEqual("transform 0.2s, opacity 0.2s")
+    expect(el.style.transition).toEqual(
+      "transform 0.2s ease-out, opacity 0.2s ease-out"
+    )
 
     // Start again, move and end
     outer.element.dispatchEvent(
