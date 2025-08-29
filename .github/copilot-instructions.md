@@ -20,11 +20,11 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 **CRITICAL TIMING NOTES**: All commands below have been validated with actual timings. NEVER CANCEL these operations.
 
 - **Install dependencies**: `yarn install --frozen-lockfile` -- takes ~31 seconds. NEVER CANCEL.
-- **Run tests**: `yarn test` -- takes ~17 seconds (currently 213 tests, some may fail). NEVER CANCEL. Set timeout to 60+ seconds.
+- **Run tests**: `yarn test` -- takes ~17 seconds (currently 213 tests, all passing). NEVER CANCEL. Set timeout to 60+ seconds.
 - **Lint code**: `yarn lint` -- takes ~14 seconds. NEVER CANCEL. Set timeout to 30+ seconds.
 - **Build library**: `yarn build` -- takes ~3 seconds. Produces `dist/index.es.js`, `dist/index.umd.js`, and `dist/index.css`.
 - **Build demo**: `yarn build:demo` -- takes ~1.5 seconds. Creates demo build in `dist/`.
-- **Full CI pipeline**: `yarn prepublishOnly` -- runs lint + test + build. May fail due to test issues. NEVER CANCEL. Set timeout to 60+ seconds.
+- **Full CI pipeline**: `yarn prepublishOnly` -- runs lint + test + build. All tests should pass. NEVER CANCEL. Set timeout to 60+ seconds.
 
 ### Development Workflow
 - **Start demo server**: `yarn dev` -- runs on http://localhost:3000 (NOT 8080 as some docs suggest)
@@ -63,10 +63,9 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
    - Test physics-based "Spring" animation
 
 ### Test Suite Validation
-- **Run full test suite**: `yarn test` -- Currently 213 tests (209 passing, 4 known failures in useDraggable). 
-- **Known failing tests**: useDraggable.spec.ts has timing-sensitive tests that may fail in some environments
+- **Run full test suite**: `yarn test` -- Currently 213 tests (all passing).
 - **Test file structure**: Tests mirror `src/` structure under `tests/unit/`
-- **Coverage requirements**: Target is 100% but currently ~63% due to incomplete test coverage
+- **Coverage requirements**: Target is 100% but currently ~67% due to incomplete test coverage
 - **Snapshot tests**: UI changes will break snapshots. Ensure logic tests pass before updating snapshots.
 
 ### Lint and Build Validation
@@ -136,7 +135,7 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 3. **Implement feature**: Make minimal changes to achieve passing tests
 4. **Validate manually**: Use demo page to test new functionality
 5. **Update types**: Add TypeScript types if needed in `src/types/`
-6. **Run full validation**: `yarn lint && yarn build` before committing (note: tests may fail due to known issues)
+6. **Run full validation**: `yarn lint && yarn test && yarn build` before committing to ensure all tests pass.
 
 ### When Fixing Bugs
 1. **Write reproduction test**: Create failing test that reproduces the bug
@@ -149,14 +148,14 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 - **Port conflict**: Demo runs on port 3000, not 8080 as some docs suggest
 - **Build warnings**: "named and default exports" warning is expected and can be ignored
 - **Browserslist outdated**: Run `npx browserslist@latest --update-db` if needed
-- **Test failures**: useDraggable tests may fail due to timing issues - this is a known issue
-- **Coverage failures**: Current coverage ~63%, not 100% - focus on testing new features thoroughly
+- **Test failures**: All tests should pass. If tests fail, investigate and fix the root cause.
+- **Coverage failures**: Current coverage ~67%, not 100% - focus on testing new features thoroughly
 - **Snapshot mismatches**: Review UI changes, then update snapshots if intentional
 
 ### Performance Expectations
 - **Cold install**: ~31 seconds for `yarn install` from scratch
 - **Incremental install**: ~5-10 seconds for small dependency changes
-- **Test execution**: ~17 seconds for full test suite (213 tests, some may fail)
+- **Test execution**: ~17 seconds for full test suite (213 tests, all passing)
 - **Library build**: ~3 seconds for complete library build
 - **Demo build**: ~1.5 seconds for demo application build
 - **Lint checking**: ~14 seconds for full TypeScript + ESLint validation
