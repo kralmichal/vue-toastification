@@ -1,5 +1,5 @@
 {
-  "name": "vue-toastification",
+  "name": "@mkralik/vue-toastification",
   "version": "3.0.0",
   "private": false,
   "description": "Toasts for Vue made easy!",
