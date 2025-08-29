@@ -4,8 +4,8 @@
  */
 import { ref, onMounted, onUnmounted } from "vue"
 
-import type { ToastID } from "../types/common"
 import type { TYPE } from "./constants"
+import type { ToastID } from "../types/common"
 
 export interface AccessibilityOptions {
   /**
