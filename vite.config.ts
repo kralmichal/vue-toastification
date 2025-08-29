@@ -4,7 +4,11 @@ import vue from "@vitejs/plugin-vue"
 import { defineConfig } from "vite"
 
 const commonConfig = defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue({
+      customElement: false,
+    }),
+  ],
   define: {
     __VUE_OPTIONS_API__: false,
   },
