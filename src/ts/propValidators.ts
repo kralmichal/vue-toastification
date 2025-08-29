@@ -35,6 +35,7 @@ export const TOAST_DEFAULTS: Required<InferDefaults<Readonly<ToastOptions>>> = {
   showCloseButtonOnHover: false,
   timeout: 5000,
   toastClassName: () => [],
+  transition: "fade",
   onClick: emptyFunction,
   onClose: emptyFunction,
   type: TYPE.DEFAULT,

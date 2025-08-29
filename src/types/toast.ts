@@ -87,6 +87,12 @@ export declare interface BaseToastOptions
    * If true, switches the toast contents from right to left. Defaults to false.
    */
   rtl?: boolean
+  /**
+   * Animation transition to use for this toast.
+   *
+   * Can be a string for the transition name or an object with enter/leave/move classes.
+   */
+  transition?: string | Record<"enter" | "leave" | "move", string>
 }
 
 export declare interface ToastOptions extends BaseToastOptions {

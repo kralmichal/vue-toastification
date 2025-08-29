@@ -1,0 +1,307 @@
+// Advanced animation mixins and classes
+@import '../variables';
+
+// Easing functions
+$vt-ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045) !default;
+$vt-ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275) !default;
+$vt-ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55) !default;
+$vt-ease-in-bounce: cubic-bezier(0.25, 0.46, 0.45, 0.94) !default;
+$vt-ease-out-bounce: cubic-bezier(0.23, 1, 0.32, 1) !default;
+$vt-ease-in-out-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275) !default;
+
+// Animation durations
+$vt-animation-duration: 250ms !default;
+$vt-animation-duration-fast: 150ms !default;
+$vt-animation-duration-slow: 400ms !default;
+
+// Safari performance optimizations
+@mixin safari-performance-boost {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform: $vt-ios-safari-transform-fix;
+  transform: $vt-ios-safari-transform-fix;
+}
+
+// Hardware acceleration mixin
+@mixin hardware-accelerate {
+  will-change: transform, opacity;
+  @include safari-performance-boost;
+}
+
+// Slide animations
+@mixin vt-slide-animation($direction: up, $distance: 20px) {
+  @if $direction == up {
+    transform: translateY($distance) translateZ(0);
+  } @else if $direction == down {
+    transform: translateY(-$distance) translateZ(0);
+  } @else if $direction == left {
+    transform: translateX($distance) translateZ(0);
+  } @else if $direction == right {
+    transform: translateX(-$distance) translateZ(0);
+  }
+}
+
+// Scale animations
+@mixin vt-scale-animation($scale: 0.8) {
+  transform: scale($scale) translateZ(0);
+}
+
+// Rotation animations
+@mixin vt-rotation-animation($rotation: 180deg) {
+  transform: rotate($rotation) translateZ(0);
+}
+
+// Combined animations
+@mixin vt-slide-scale-animation($direction: up, $distance: 20px, $scale: 0.95) {
+  @if $direction == up {
+    transform: translateY($distance) scale($scale) translateZ(0);
+  } @else if $direction == down {
+    transform: translateY(-$distance) scale($scale) translateZ(0);
+  } @else if $direction == left {
+    transform: translateX($distance) scale($scale) translateZ(0);
+  } @else if $direction == right {
+    transform: translateX(-$distance) scale($scale) translateZ(0);
+  }
+}
+
+// Advanced transition classes
+.#{$vt-namespace}__toast {
+  // Base performance optimizations for all animations
+  @include hardware-accelerate;
+  
+  // Slide Up
+  &.vt-slide-up-enter-active,
+  &.vt-slide-up-leave-active {
+    transition: all $vt-animation-duration $vt-ease-out-back;
+  }
+  
+  &.vt-slide-up-enter-from {
+    @include vt-slide-animation(up, 30px);
+    opacity: 0;
+  }
+  
+  &.vt-slide-up-leave-to {
+    @include vt-slide-animation(up, -30px);
+    opacity: 0;
+  }
+
+  // Slide Down
+  &.vt-slide-down-enter-active,
+  &.vt-slide-down-leave-active {
+    transition: all $vt-animation-duration $vt-ease-out-back;
+  }
+  
+  &.vt-slide-down-enter-from {
+    @include vt-slide-animation(down, 30px);
+    opacity: 0;
+  }
+  
+  &.vt-slide-down-leave-to {
+    @include vt-slide-animation(down, -30px);
+    opacity: 0;
+  }
+
+  // Slide Left
+  &.vt-slide-left-enter-active,
+  &.vt-slide-left-leave-active {
+    transition: all $vt-animation-duration $vt-ease-out-back;
+  }
+  
+  &.vt-slide-left-enter-from {
+    @include vt-slide-animation(left, 100%);
+    opacity: 0;
+  }
+  
+  &.vt-slide-left-leave-to {
+    @include vt-slide-animation(left, -100%);
+    opacity: 0;
+  }
+
+  // Slide Right
+  &.vt-slide-right-enter-active,
+  &.vt-slide-right-leave-active {
+    transition: all $vt-animation-duration $vt-ease-out-back;
+  }
+  
+  &.vt-slide-right-enter-from {
+    @include vt-slide-animation(right, 100%);
+    opacity: 0;
+  }
+  
+  &.vt-slide-right-leave-to {
+    @include vt-slide-animation(right, -100%);
+    opacity: 0;
+  }
+
+  // Scale
+  &.vt-scale-enter-active,
+  &.vt-scale-leave-active {
+    transition: all $vt-animation-duration ease-out;
+  }
+  
+  &.vt-scale-enter-from {
+    @include vt-scale-animation(0.8);
+    opacity: 0;
+  }
+  
+  &.vt-scale-leave-to {
+    @include vt-scale-animation(0.8);
+    opacity: 0;
+  }
+
+  // Scale Bounce
+  &.vt-scale-bounce-enter-active {
+    transition: all $vt-animation-duration $vt-ease-out-bounce;
+  }
+  
+  &.vt-scale-bounce-leave-active {
+    transition: all $vt-animation-duration ease-in;
+  }
+  
+  &.vt-scale-bounce-enter-from {
+    @include vt-scale-animation(0.3);
+    opacity: 0;
+  }
+  
+  &.vt-scale-bounce-leave-to {
+    @include vt-scale-animation(0.8);
+    opacity: 0;
+  }
+
+  // Rotate In
+  &.vt-rotate-in-enter-active {
+    transition: all $vt-animation-duration $vt-ease-out-back;
+  }
+  
+  &.vt-rotate-in-leave-active {
+    transition: all $vt-animation-duration ease-in;
+  }
+  
+  &.vt-rotate-in-enter-from {
+    @include vt-rotation-animation(-90deg);
+    @include vt-scale-animation(0.8);
+    opacity: 0;
+  }
+  
+  &.vt-rotate-in-leave-to {
+    @include vt-rotation-animation(90deg);
+    @include vt-scale-animation(0.8);
+    opacity: 0;
+  }
+
+  // Slide Scale Combined
+  &.vt-slide-scale-enter-active,
+  &.vt-slide-scale-leave-active {
+    transition: all $vt-animation-duration $vt-ease-out-back;
+  }
+  
+  &.vt-slide-scale-enter-from {
+    @include vt-slide-scale-animation(up, 20px, 0.9);
+    opacity: 0;
+  }
+  
+  &.vt-slide-scale-leave-to {
+    @include vt-slide-scale-animation(up, -20px, 0.9);
+    opacity: 0;
+  }
+
+  // Fade Rotate Combined
+  &.vt-fade-rotate-enter-active {
+    transition: all $vt-animation-duration $vt-ease-out-back;
+  }
+  
+  &.vt-fade-rotate-leave-active {
+    transition: all $vt-animation-duration ease-in;
+  }
+  
+  &.vt-fade-rotate-enter-from {
+    @include vt-rotation-animation(5deg);
+    opacity: 0;
+  }
+  
+  &.vt-fade-rotate-leave-to {
+    @include vt-rotation-animation(-5deg);
+    opacity: 0;
+  }
+
+  // Spring animation (hardware accelerated)
+  &.vt-spring-enter-active {
+    transition: none;
+    @include hardware-accelerate;
+  }
+  
+  &.vt-spring-leave-active {
+    transition: all $vt-animation-duration-fast ease-out;
+  }
+  
+  &.vt-spring-enter-from {
+    transform: scale(0.8) translateY(20px) translateZ(0);
+    opacity: 0;
+  }
+  
+  &.vt-spring-leave-to {
+    transform: scale(0.95) translateY(-10px) translateZ(0);
+    opacity: 0;
+  }
+
+  // Mobile-specific animation adjustments
+  @media #{$vt-mobile} {
+    // Reduce animation duration on mobile for better performance
+    &[class*="enter-active"],
+    &[class*="leave-active"] {
+      transition-duration: $vt-animation-duration-fast !important;
+    }
+
+    // Ensure hardware acceleration on mobile
+    &[class*="enter-active"],
+    &[class*="leave-active"] {
+      @include hardware-accelerate;
+    }
+  }
+
+  // Safari-specific optimizations
+  @media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+      // Safari-specific rules
+      &[class*="enter-active"],
+      &[class*="leave-active"] {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+      }
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .#{$vt-namespace}__toast {
+    &[class*="enter-active"],
+    &[class*="leave-active"] {
+      transition: opacity $vt-animation-duration-fast ease !important;
+    }
+    
+    &[class*="enter-from"],
+    &[class*="leave-to"] {
+      transform: translateZ(0) !important;
+    }
+  }
+}
+
+// Performance optimizations for all browsers
+.#{$vt-namespace}__toast {
+  &[class*="enter-active"],
+  &[class*="leave-active"] {
+    // Hint to browser about what properties will change
+    will-change: transform, opacity;
+    
+    // Force layer creation for smooth animations
+    transform: translateZ(0);
+  }
+  
+  // Clean up will-change after animation
+  &:not([class*="enter-active"]):not([class*="leave-active"]) {
+    will-change: auto;
+  }
+}

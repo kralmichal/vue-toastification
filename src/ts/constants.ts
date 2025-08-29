@@ -23,4 +23,20 @@ export enum EVENTS {
   UPDATE_DEFAULTS = "update_defaults",
 }
 
+export enum ANIMATION_TYPE {
+  FADE = "fade",
+  SLIDE_UP = "slide-up",
+  SLIDE_DOWN = "slide-down",
+  SLIDE_LEFT = "slide-left",
+  SLIDE_RIGHT = "slide-right",
+  SCALE = "scale",
+  SCALE_BOUNCE = "scale-bounce",
+  ROTATE_IN = "rotate-in",
+  SLIDE_SCALE = "slide-scale",
+  FADE_ROTATE = "fade-rotate",
+  SPRING = "spring",
+  BOUNCE = "bounce",
+  SLIDE_BLURRED = "slideBlurred",
+}
+
 export const VT_NAMESPACE = "Vue-Toastification"
