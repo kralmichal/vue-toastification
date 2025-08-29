@@ -7,7 +7,7 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 ## Working Effectively
 
 ### Prerequisites and Setup
-- Install Node.js 14+ (repository includes .nvmrc with 14, but Node 16+ recommended)
+- Install Node.js 20+ (repository includes .nvmrc with 20, minimum required)
 - Install Yarn package manager: `npm install -g yarn`
 - Clone and setup:
   ```bash
@@ -86,7 +86,7 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 │   ├── unit/              # Unit tests (mirrors src/ structure)
 │   └── utils/             # Test utilities and helpers
 ├── dist/                  # Built library files (generated)
-├── .github/workflows/     # CI/CD pipeline (runs Node 14, 16)
+├── .github/workflows/     # CI/CD pipeline (runs Node 20, 22)
 └── package.json           # Scripts and dependencies
 ```
 
@@ -118,7 +118,7 @@ Vue Toastification is a Vue 3 plugin/library for displaying toast notifications.
 - **Lint-staged**: Configured in `package.json` to run linting on staged files
 
 ### CI/CD Pipeline
-- **Workflow**: `.github/workflows/cicd.yml` -- tests on Node 14, 16
+- **Workflow**: `.github/workflows/cicd.yml` -- tests on Node 20, 22
 - **Steps**: Install → Lint → Test → Build library → Build demo
 - **Coverage**: Uploads to Codecov automatically
 

@@ -39,6 +39,9 @@
     "dist"
   ],
   "sideEffects": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^27.4.0",
