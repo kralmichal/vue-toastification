@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, nextTick, ref } from "vue"
+import { ComponentPublicInstance, nextTick, ref, computed } from "vue"
 
 import { mount, VueWrapper } from "@vue/test-utils"
 import merge from "lodash.merge"
@@ -174,6 +174,14 @@ describe("VtToast", () => {
       jest.spyOn(useDraggableModule, "useDraggable").mockImplementation(() => ({
         beingDragged: ref(false),
         dragComplete: ref(true),
+        isMobileDevice: computed(() => false),
+        dragVelocity: computed(() => 0),
+        memoryStats: computed(() => ({
+          activeListeners: 0,
+          activeTimers: 0,
+          activeFrames: 0,
+          activeObservers: 0,
+        })),
       }))
       const wrapper = mountToast()
       const vm = wrapper.vm as unknown as {
@@ -250,6 +258,14 @@ describe("VtToast", () => {
       jest.spyOn(useDraggableModule, "useDraggable").mockImplementation(() => ({
         beingDragged: ref(true),
         dragComplete: ref(false),
+        isMobileDevice: computed(() => false),
+        dragVelocity: computed(() => 0),
+        memoryStats: computed(() => ({
+          activeListeners: 0,
+          activeTimers: 0,
+          activeFrames: 0,
+          activeObservers: 0,
+        })),
       }))
       const onClick = jest.fn()
       const wrapper = mountToast({ onClick })
@@ -350,9 +366,18 @@ describe("VtToast", () => {
   describe("drag", () => {
     it("pauses/resumes if draggable", async () => {
       const beingDragged = ref(false)
-      jest
-        .spyOn(useDraggableModule, "useDraggable")
-        .mockImplementation(() => ({ beingDragged, dragComplete: ref(false) }))
+      jest.spyOn(useDraggableModule, "useDraggable").mockImplementation(() => ({
+        beingDragged,
+        dragComplete: ref(false),
+        isMobileDevice: computed(() => false),
+        dragVelocity: computed(() => 0),
+        memoryStats: computed(() => ({
+          activeListeners: 0,
+          activeTimers: 0,
+          activeFrames: 0,
+          activeObservers: 0,
+        })),
+      }))
       const wrapper = mountToast({ draggable: true })
       const vm = wrapper.vm as unknown as {
         isRunning: boolean
@@ -367,9 +392,18 @@ describe("VtToast", () => {
     })
     it("closes toast on drag end", async () => {
       const dragComplete = ref(false)
-      jest
-        .spyOn(useDraggableModule, "useDraggable")
-        .mockImplementation(() => ({ beingDragged: ref(false), dragComplete }))
+      jest.spyOn(useDraggableModule, "useDraggable").mockImplementation(() => ({
+        beingDragged: ref(false),
+        dragComplete,
+        isMobileDevice: computed(() => false),
+        dragVelocity: computed(() => 0),
+        memoryStats: computed(() => ({
+          activeListeners: 0,
+          activeTimers: 0,
+          activeFrames: 0,
+          activeObservers: 0,
+        })),
+      }))
       mountToast({ draggable: true, eventBus, id: "closesOnEnd" })
 
       await nextTick()

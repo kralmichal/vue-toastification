@@ -13,15 +13,90 @@
   color: #fff;
   opacity: 0.3;
   transition: visibility 0s, opacity 0.2s linear;
+  
+  // Enhanced touch target for mobile
+  min-width: 32px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   &:hover,
   &:focus {
     opacity: 1;
   }
+  
   .#{$vt-namespace}__toast:not(:hover) &.show-on-hover {
     opacity: 0;
   }
+  
   .#{$vt-namespace}__toast--rtl & {
     padding-left: unset;
     padding-right: 10px;
+  }
+
+  // Mobile-specific improvements
+  @media #{$vt-mobile} {
+    // Larger touch target for mobile
+    min-width: $vt-mobile-close-button-size;
+    min-height: $vt-mobile-close-button-size;
+    font-size: 28px;
+    line-height: 28px;
+    
+    // Always visible on mobile (no hover state)
+    opacity: 0.6;
+    
+    &:active,
+    &:focus {
+      opacity: 1;
+      // Slight scale feedback for touch
+      transform: scale(1.1);
+    }
+    
+    // Disable show-on-hover on mobile
+    &.show-on-hover {
+      opacity: 0.6 !important;
+    }
+    
+    .#{$vt-namespace}__toast:not(:hover) &.show-on-hover {
+      opacity: 0.6 !important;
+    }
+  }
+
+  // Small mobile devices need even larger touch targets
+  @media #{$vt-small-mobile} {
+    min-width: #{$vt-mobile-close-button-size + 4px};
+    min-height: #{$vt-mobile-close-button-size + 4px};
+    font-size: 30px;
+    line-height: 30px;
+  }
+
+  // High DPI displays (retina)
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+         only screen and (min-resolution: 192dpi) {
+    // Slightly larger on high DPI for better visibility
+    font-size: 26px;
+    line-height: 26px;
+    
+    @media #{$vt-mobile} {
+      font-size: 30px;
+      line-height: 30px;
+    }
+  }
+
+  // Accessibility improvements
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    transition: opacity 0.1s ease !important;
+    
+    &:active {
+      transform: none !important;
+    }
   }
 }

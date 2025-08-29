@@ -27,7 +27,29 @@ $vt-color-progress-default: linear-gradient(
   #ff2d55
 ) !default;
 
+// Enhanced mobile breakpoints
 $vt-mobile: "only screen and (max-width : 600px)" !default;
+$vt-tablet: "only screen and (min-width : 601px) and (max-width : 1024px)" !default;
 $vt-not-mobile: "only screen and (min-width : 600px)" !default;
+$vt-small-mobile: "only screen and (max-width : 480px)" !default;
+$vt-large-mobile: "only screen and (min-width : 481px) and (max-width : 600px)" !default;
+
+// Mobile-specific toast dimensions
+$vt-mobile-toast-min-width: 280px !default;
+$vt-mobile-toast-max-width: calc(100vw - 20px) !default;
+$vt-mobile-toast-margin: 10px !default;
+$vt-mobile-container-padding: 10px !default;
+
+// Enhanced touch targets for mobile
+$vt-mobile-touch-target: 48px !default;
+$vt-mobile-close-button-size: 44px !default;
+
+// Mobile-optimized spacing
+$vt-mobile-toast-spacing: 8px !default;
+$vt-mobile-content-padding: 12px !default;
+
 $vt-font-family: "Lato", Helvetica, "Roboto", Arial, sans-serif !default;
 $vt-z-index: 9999 !default;
+
+// iOS Safari specific fixes
+$vt-ios-safari-transform-fix: translate3d(0, 0, 0) !default;

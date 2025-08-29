@@ -11,6 +11,10 @@
   color: #fff;
   flex-direction: column;
   pointer-events: none;
+  
+  // iOS Safari viewport fix
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
   @media #{$vt-not-mobile} {
     &.top-left,
@@ -69,24 +73,105 @@
     }
   }
 
+  // Enhanced mobile responsiveness
   @media #{$vt-mobile} {
     width: 100vw;
-    padding: 0;
+    padding: $vt-mobile-container-padding;
     left: 0;
     margin: 0;
+    
+    // Handle safe areas on modern mobile devices
+    padding-top: max($vt-mobile-container-padding, env(safe-area-inset-top));
+    padding-bottom: max($vt-mobile-container-padding, env(safe-area-inset-bottom));
+    padding-left: max($vt-mobile-container-padding, env(safe-area-inset-left));
+    padding-right: max($vt-mobile-container-padding, env(safe-area-inset-right));
+    
     .#{$vt-namespace}__toast {
-      width: 100%;
+      width: calc(100% - #{$vt-mobile-toast-margin * 2});
+      margin-left: $vt-mobile-toast-margin;
+      margin-right: $vt-mobile-toast-margin;
+      max-width: $vt-mobile-toast-max-width;
+      min-width: $vt-mobile-toast-min-width;
+      
+      // Ensure proper spacing between toasts on mobile
+      margin-bottom: $vt-mobile-toast-spacing;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
+    
     &.top-left,
     &.top-right,
     &.top-center {
       top: 0;
+      
+      // Handle iOS Safari notch
+      @supports (top: env(safe-area-inset-top)) {
+        top: env(safe-area-inset-top);
+      }
     }
+    
     &.bottom-left,
     &.bottom-right,
     &.bottom-center {
       bottom: 0;
       flex-direction: column-reverse;
+      
+      // Handle iOS Safari home indicator
+      @supports (bottom: env(safe-area-inset-bottom)) {
+        bottom: env(safe-area-inset-bottom);
+      }
+      
+      .#{$vt-namespace}__toast {
+        margin-top: $vt-mobile-toast-spacing;
+        margin-bottom: 0;
+        
+        &:last-child {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  // Small mobile devices (phones in portrait)
+  @media #{$vt-small-mobile} {
+    padding: 8px;
+    
+    .#{$vt-namespace}__toast {
+      margin-left: 4px;
+      margin-right: 4px;
+      margin-bottom: 6px;
+      width: calc(100% - 8px);
+    }
+  }
+
+  // Handle landscape orientation on mobile
+  @media #{$vt-mobile} and (orientation: landscape) {
+    // Reduce spacing in landscape to maximize content area
+    padding: 6px;
+    
+    .#{$vt-namespace}__toast {
+      margin-bottom: 4px;
+    }
+    
+    &.bottom-left,
+    &.bottom-right,
+    &.bottom-center {
+      .#{$vt-namespace}__toast {
+        margin-top: 4px;
+      }
+    }
+  }
+
+  // Handle virtual keyboard on mobile (experimental)
+  @media #{$vt-mobile} and (max-height: 500px) {
+    // When viewport height is reduced (likely keyboard is open)
+    &.bottom-left,
+    &.bottom-right,
+    &.bottom-center {
+      // Move bottom toasts higher to avoid keyboard
+      bottom: 10px;
     }
   }
 }
