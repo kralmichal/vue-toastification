@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { ref } from "vue"
 
 import type { ToastAction } from "../types/interactions"
 
@@ -70,10 +70,6 @@ const handleActionClick = async (action: ToastAction) => {
     isProcessing.value = false
   }
 }
-
-const isActionLoading = computed(() => {
-  return props.loading || isProcessing.value
-})
 </script>
 
 <style lang="scss">

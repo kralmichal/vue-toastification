@@ -114,15 +114,15 @@ export interface ToastFormField {
   label?: string
   placeholder?: string
   required?: boolean
-  value?: any
-  options?: { label: string; value: any }[] // for select/radio
-  validation?: (value: any) => string | null
+  value?: unknown
+  options?: { label: string; value: unknown }[] // for select/radio
+  validation?: (value: unknown) => string | null
 }
 
 export interface ToastForm {
   fields: ToastFormField[]
   onSubmit: (
-    formData: Record<string, any>,
+    formData: Record<string, unknown>,
     toastId: string
   ) => void | Promise<void>
   onCancel?: (toastId: string) => void

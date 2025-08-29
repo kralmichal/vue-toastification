@@ -92,7 +92,7 @@ export function createActionToast(
     props: ["content", "actions", "toastId"],
     emits: ["close-toast"],
     methods: {
-      onActionClick(action: ToastAction) {
+      onActionClick() {
         // Handle action click
         if (options?.onInteraction?.onFocus) {
           // Could trigger additional callbacks here

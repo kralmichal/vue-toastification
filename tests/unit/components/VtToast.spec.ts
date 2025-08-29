@@ -16,6 +16,7 @@ import Simple from "../../utils/components/Simple.vue"
 import type { ToastOptionsAndContent } from "../../../src/types/toast"
 
 const setData = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   wrapper: VueWrapper<any>,
   override: Record<string, unknown>
 ) => {

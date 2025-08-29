@@ -13,7 +13,10 @@ import {
 
 import { mount } from "@vue/test-utils"
 
-import { useDraggable } from "../../../../src/ts/composables/useDraggable"
+import {
+  useDraggable,
+  type MobileDragOptions,
+} from "../../../../src/ts/composables/useDraggable"
 
 const activeText = "dragging"
 const inactiveText = "stopped"
@@ -23,7 +26,7 @@ type Props = Parameters<typeof useDraggable>[1]
 
 const TestComponent = (
   getEl?: (el: Ref<HTMLElement | undefined>) => void,
-  mobileOptions?: any
+  mobileOptions?: MobileDragOptions
 ) =>
   defineComponent({
     props: {

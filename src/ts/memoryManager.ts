@@ -3,7 +3,7 @@
  */
 
 // WeakMap for storing component references without creating memory leaks
-export const componentRefs = new WeakMap<HTMLElement, any>()
+export const componentRefs = new WeakMap<HTMLElement, unknown>()
 
 // Registry for active event listeners
 const activeListeners = new Map<
@@ -258,13 +258,15 @@ export class MemoryManager {
     handler: EventListener,
     options?: AddEventListenerOptions
   ): string {
-    // Use type assertion since we know the event types are compatible
-    return this.eventManager.addEventListener(
-      element as any,
-      event as any,
-      handler,
-      options
-    )
+    // Delegate to event manager with proper type handling
+    return (
+      this.eventManager.addEventListener as (
+        element: HTMLElement | Window | Document,
+        event: string,
+        handler: EventListener,
+        options?: AddEventListenerOptions
+      ) => string
+    )(element, event, handler, options)
   }
 
   /**
