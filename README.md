@@ -72,7 +72,6 @@ If you are using Vue 2, check out [Vue Toastification v1](https://github.com/Mar
       - [Toast Options Object](#toast-options-object)
 - [Updating from v1.x](#updating-from-v1x)
   - [Creating toasts](#creating-toasts-1)
-  - [Deprecated options](#deprecated-options)
 - [Acknowledgements](#acknowledgements)
 - [License](#license)
 
@@ -1032,9 +1031,6 @@ Aside from dropping Vue 2 support in favor of Vue 3, not much has changed betwee
 
 ## Creating toasts
 `this.$toast` is not available anymore. Use `useToast` to get a toast interface. The returning object is identical and has the same methods as `this.$toast`.
-
-## Deprecated options
-Due to some changes on Vue's transition system, `transitionDuration` has been deprecated. To change the duration of a transition, change or override the transition classes.
 
 # Acknowledgements
 This project was heavily inspired by the beautiful [React Toastify](https://github.com/fkhadra/react-toastify) project and [other](https://github.com/shakee93/vue-toasted) [great](https://github.com/ankurk91/vue-toast-notification) Vue libraries.
