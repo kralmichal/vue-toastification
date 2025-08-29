@@ -130,10 +130,6 @@ describe("isToastContent", () => {
       })
     ).toBe(true)
   })
-  it("is jsx", () => {
-    const jsx = { tag: "div" } as unknown as JSX.Element
-    expect(isToastContent(jsx)).toBe(true)
-  })
   it("is toast component", () => {
     const component = { component: "string" }
     expect(isToastContent(component)).toBe(true)
@@ -175,11 +171,6 @@ describe("getVueComponentFromObj", () => {
   it("get sfc", () => {
     const component = Simple
     expect(getVueComponentFromObj(component)).toBe(component)
-  })
-  it("get jsx with render", () => {
-    const jsx = { tag: "div" } as unknown as JSX.Element
-    const vueComp = getVueComponentFromObj(jsx) as { render(): JSX.Element }
-    expect(vueComp.render()).toBe(jsx)
   })
   it("get toast component", () => {
     const component = { component: "my component string" }

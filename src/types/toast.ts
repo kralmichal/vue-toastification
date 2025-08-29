@@ -139,10 +139,7 @@ export declare interface ToastComponent {
   listeners?: { [listenerEvent: string]: Function }
 }
 
-export declare type ToastContent =
-  | RenderableToastContent
-  | JSX.Element
-  | ToastComponent
+export declare type ToastContent = RenderableToastContent | ToastComponent
 
 export declare type ToastOptionsAndContent = ToastOptions & {
   content: ToastContent
