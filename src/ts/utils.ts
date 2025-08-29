@@ -1,4 +1,4 @@
-import { Component, defineComponent, toRaw, unref } from "vue"
+import { Component, toRaw, unref } from "vue"
 
 import type { BasePluginOptions } from "../types/plugin"
 import type {
@@ -28,9 +28,6 @@ const isUndefined = (value: unknown): value is undefined =>
 
 const isObject = (value: unknown): value is DictionaryLike =>
   typeof value === "object" && value !== null
-
-const isJSX = (obj: unknown): obj is JSX.Element =>
-  hasProp(obj, "tag") && isNonEmptyString(obj.tag)
 
 const isTouchEvent = (event: Event): event is TouchEvent =>
   window.TouchEvent && event instanceof TouchEvent
@@ -100,14 +97,6 @@ const getVueComponentFromObj = (obj: ToastContent): RenderableToastContent => {
   if (isToastComponent(obj)) {
     // Recurse if component prop
     return getVueComponentFromObj(obj.component)
-  }
-  if (isJSX(obj)) {
-    // Create render function for JSX
-    return defineComponent({
-      render() {
-        return obj
-      },
-    })
   }
   // Return regular string or raw object
   return typeof obj === "string" ? obj : toRaw(unref(obj))
