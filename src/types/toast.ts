@@ -1,6 +1,5 @@
 import type { Component } from "vue"
 
-import type { TYPE, POSITION } from "../ts/constants"
 import type {
   Button,
   ClassNames,
@@ -11,6 +10,7 @@ import type {
   Icon,
   ToastID,
 } from "./common"
+import type { TYPE, POSITION } from "../ts/constants"
 
 export declare interface BaseToastOptions
   extends EventBusable,

@@ -37,7 +37,8 @@ describe("VtTransition", () => {
         },
       },
     })
-    const transition = wrapper.vm.$props.transition
+    // Use the default transition value
+    const transition = "Vue-Toastification__bounce"
     const componentProps = wrapper.findComponent(TransitionGroup).props()
     expect(componentProps.enterActiveClass).toBe(`${transition}-enter-active`)
     expect(componentProps.moveClass).toBe(`${transition}-move`)

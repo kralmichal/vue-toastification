@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, nextTick, ref, computed } from "vue"
+import { nextTick, ref, computed } from "vue"
 
 import { mount, VueWrapper } from "@vue/test-utils"
 import merge from "lodash.merge"
@@ -16,7 +16,7 @@ import Simple from "../../utils/components/Simple.vue"
 import type { ToastOptionsAndContent } from "../../../src/types/toast"
 
 const setData = (
-  wrapper: VueWrapper<ComponentPublicInstance>,
+  wrapper: VueWrapper<any>,
   override: Record<string, unknown>
 ) => {
   merge(wrapper.vm, override)

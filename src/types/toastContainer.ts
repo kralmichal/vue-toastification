@@ -1,10 +1,10 @@
-import type { TYPE } from "../ts/constants"
 import type { ClassNames, EventBusable } from "./common"
 import type {
   BaseToastOptions,
   ToastOptions,
   ToastOptionsAndContent,
 } from "./toast"
+import type { TYPE } from "../ts/constants"
 
 type ContainerCallback = () => HTMLElement | Promise<HTMLElement>
 
