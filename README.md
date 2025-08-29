@@ -30,7 +30,6 @@ If you are using Vue 2, check out [Vue Toastification v1](https://github.com/Mar
     - [Using a custom component](#using-a-custom-component)
       - [Render a component](#render-a-component)
       - [Close the toast using a custom component](#close-the-toast-using-a-custom-component)
-      - [Render a JSX component](#render-a-jsx-component)
       - [Render a component with props and events](#render-a-component-with-props-and-events)
       - [Access global components and plugins inside toasts](#access-global-components-and-plugins-inside-toasts)
     - [Dismiss toasts programmatically](#dismiss-toasts-programmatically)
@@ -87,7 +86,7 @@ If you are using Vue 2, check out [Vue Toastification v1](https://github.com/Mar
 - Easy to set up for real, you can make it work in less than 10sec!
 - Customize everything
 - Swipe to close 👌
-- Use your custom components or JSX as the toast body for endless possibilities!
+- Use your custom components as the toast body for endless possibilities!
 - Create custom experiences with `onClose`, `onClick`, and `onMounted` hooks
 - Custom toast filtering and enqueueing with lifecycle hooks
 - Remove toasts programmatically
@@ -276,7 +275,7 @@ app.use(Toast, { timeout: 2000 });
 ```
 
 ### Using a custom component
-Passing strings as the toast content is not enough? You can render anything inside the toast using custom components! Vue Toastification accepts both Vue Components and JSX templates as parameters.
+Passing strings as the toast content is not enough? You can render anything inside the toast using custom components! Vue Toastification accepts Vue Components as parameters.
 
 When using custom components, the prop `toastId` containing the toast ID is always passed by default. Also, an event listener for `close-toast` is attached, so you can close the toast programmatically by emitting it from inside the component.
 
@@ -316,24 +315,6 @@ toast(MyComponent);
 ```
 
 
-#### Render a JSX component
-Sometimes you won't want to create a whole component just for a toast. In those cases, you can pass a JSX template to the Toast for it to render as a component
-
-> Note: Read [this](https://vuejs.org/v2/guide/render-function.html#JSX) to learn how to enable JSX inside of Vue
-
-```js
-const myJSX = (
-    <div>
-        <h1>My Title</h1>
-        <span>My text</span>
-    </div>
-);
-
-// Vue Toastification will generate the appropriate render function automatically.
-toast(myJSX);
-```
-
-
 #### Render a component with props and events
 
 Usually, it is not enough to just render a simple component and you'll need to handle events or pass props. You can do that too!
@@ -358,7 +339,7 @@ Props will be passed to the created component and the event listeners will be at
 
 ```js
 const content = {
-    // Your component or JSX template
+    // Your component
     component: MyComponent,
 
     // Props are just regular props, but these won't be reactive
@@ -659,7 +640,7 @@ You can also use custom icons with the `icon` option. To do so, you'll probably 
 
 You can also install a Vue icon library with custom components, such as [Vue FontAwesome](https://github.com/FortAwesome/vue-fontawesome).
 
-Using them varies between icon libraries. You can either override icon classes with `icon: "my-icon-class"`, pass a custom component / JSX, or you can set up more complex icon systems by passing an object. Let's look at the options with some examples:
+Using them varies between icon libraries. You can either override icon classes with `icon: "my-icon-class"`, pass a custom component, or you can set up more complex icon systems by passing an object. Let's look at the options with some examples:
 
 ```javascript
 // Using Font Awesome icons
@@ -716,7 +697,7 @@ toast('No close button', {
 ```
 
 #### Custom close button component
-You can also use custom components as close buttons. It accepts Single File Components, JSX and tag names:
+You can also use custom components as close buttons. It accepts Single File Components and tag names:
 ```js
 toast('With a custom close component', {
   closeButton: MyComponent
@@ -973,12 +954,12 @@ Sometimes you may need to create a new Vue Toastification instance and make it a
 | toastClassName         | String or Array of Strings                                        | `[]`                                                | Custom classes applied to the toast.                                                                                                                                                                                      |
 | bodyClassName          | String or Array of Strings                                        | `[]`                                                | Custom classes applied to the body of the toast.                                                                                                                                                                          |
 | hideProgressBar        | Boolean                                                           | `false`                                             | Whether or not the progress bar is hidden.                                                                                                                                                                                |
-| icon                   | Boolean, String, Object Vue Component or JSX                      | `true`                                              | Custom icon class to be used. When set to `true`, the icon is set automatically depending on the toast type and `false` disables the icon. Object shape is `{ iconClass: String, iconChildren: String, iconTag: String }` |
+| icon                   | Boolean, String, Object or Vue Component                      | `true`                                              | Custom icon class to be used. When set to `true`, the icon is set automatically depending on the toast type and `false` disables the icon. Object shape is `{ iconClass: String, iconChildren: String, iconTag: String }` |
 | toastDefaults          | Object                                                            | `undefined`                                         | Toast's defaults object for configuring default toast options for each toast type.                                                                                                                                        |
 | filterBeforeCreate     | Function                                                          | `NOOP`                                              | Callback to filter toasts before their creation. Takes a `toast` and `toasts` argument and returns a `toast` or `false`                                                                                                   |
 | filterToasts           | Function                                                          | `NOOP`                                              | Callback to filter created toasts. Takes a list of `toasts` argument and return a filtered list of `toasts`                                                                                                               |
 | closeButtonClassName   | String or Array of Strings                                        | `[]`                                                | Custom classes applied to the close button of the toast.                                                                                                                                                                  |
-| closeButton            | `false`, Vue Component, JSX or HTML Tag name                      | `"button"`                                          | Custom component that can be used as the close button.                                                                                                                                                                    |
+| closeButton            | `false`, Vue Component or HTML Tag name                      | `"button"`                                          | Custom component that can be used as the close button.                                                                                                                                                                    |
 | showCloseButtonOnHover | Boolean                                                           | `false`                                             | Only shows the close button when hovering the toast.                                                                                                                                                                      |
 | containerClassName     | String or Array of Strings                                        | `[]`                                                | Extra CSS class or classes added to each of the Toast containers.                                                                                                                                                         |
 | onMounted              | Function `(containerApp, containerComponent) => void`             | `undefined`                                         | Callback executed when the Toast container is mounted. Receives the app and container instances as parameters.                                                                                                            |
@@ -990,13 +971,13 @@ Sometimes you may need to create a new Vue Toastification instance and make it a
 ### Toast (toast)
 | Parameter | Type                                 | Required | Description                                                                                                                                                                     |
 | --------- | ------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| content   | String, Vue Component, JSX or Object | Yes      | Toast contents. It can either be a string, a Vue Component, a JSX template or an Object. The shape of the object and its properties are described [here](#toast-content-object) |
+| content   | String, Vue Component or Object | Yes      | Toast contents. It can either be a string, a Vue Component or an Object. The shape of the object and its properties are described [here](#toast-content-object) |
 | options   | Object                               | No       | Toast options. Described [here](#toast-options-object)                                                                                                                          |
 
 #### Toast Content Object
 | Prop      | Type                 | Required | Description                                                                                           |
 | --------- | -------------------- | -------- | ----------------------------------------------------------------------------------------------------- |
-| component | Vue Component or JSX | Yes      | Component that will be rendered.                                                                      |
+| component | Vue Component | Yes      | Component that will be rendered.                                                                      |
 | props     | Object               | No       | `propName: propValue` pairs of props that will be passed to the component. **These are not reactive** |
 | listeners | Object               | No       | `eventName: eventHandler` pairs of events that the component can emit.                                |
 
@@ -1017,9 +998,9 @@ Sometimes you may need to create a new Vue Toastification instance and make it a
 | toastClassName         | String or Array of Strings                          | `[]`                                                | Custom classes applied to the toast.                                                                                                                                                                                      |
 | bodyClassName          | String or Array of Strings                          | `[]`                                                | Custom classes applied to the body of the toast.                                                                                                                                                                          |
 | hideProgressBar        | Boolean                                             | `false`                                             | Whether or not the progress bar is hidden.                                                                                                                                                                                |
-| icon                   | Boolean, String, Object Vue Component or JSX        | `true`                                              | Custom icon class to be used. When set to `true`, the icon is set automatically depending on the toast type and `false` disables the icon. Object shape is `{ iconClass: String, iconChildren: String, iconTag: String }` |
+| icon                   | Boolean, String, Object or Vue Component        | `true`                                              | Custom icon class to be used. When set to `true`, the icon is set automatically depending on the toast type and `false` disables the icon. Object shape is `{ iconClass: String, iconChildren: String, iconTag: String }` |
 | closeButtonClassName   | String or Array of Strings                          | `[]`                                                | Custom classes applied to the close button of the toast.                                                                                                                                                                  |
-| closeButton            | `false`, Vue Component, JSX or HTML Tag name        | `"button"`                                          | Custom component that can be used as the close button.                                                                                                                                                                    |
+| closeButton            | `false`, Vue Component or HTML Tag name        | `"button"`                                          | Custom component that can be used as the close button.                                                                                                                                                                    |
 | showCloseButtonOnHover | Boolean                                             | `false`                                             | Only shows the close button when hovering the toast.                                                                                                                                                                      |
 | accessibility          | `{ toastRole?: string; closeButtonLabel?: string }` | `{ toastRole: "alert", closeButtonLabel: "close" }` | Accessibility options. Define the `role` attribute of the toast body and the `aria-label` attribute of the close button.                                                                                                  |
 | rtl                    | Boolean                                             | `false`                                             | Enables Right to Left layout.                                                                                                                                                                                             |
